@@ -1,18 +1,181 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fusionice Games</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; background: #0f0f0f; color: #fff; }
-    h1 { margin-top: 100px; }
-    a { color: #00bfff; text-decoration: none; }
+    :root {
+      --bg: #0f1115;
+      --accent: #00bfff;
+      --text: #f1f1f1;
+      --muted: #999;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: "Poppins", Arial, sans-serif;
+      line-height: 1.6;
+    }
+
+    header {
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(255,255,255,0.02);
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      color: var(--accent);
+      letter-spacing: 1px;
+    }
+
+    nav a {
+      margin-left: 20px;
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 500;
+      transition: 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 100px 20px 60px;
+      background: linear-gradient(180deg, #0f1115 0%, #13161c 100%);
+    }
+
+    .hero h2 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    .games {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
+      padding: 60px 40px;
+    }
+
+    .game {
+      background: #161a21;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      transition: transform 0.3s;
+    }
+
+    .game:hover {
+      transform: translateY(-5px);
+    }
+
+    .game img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .game-content {
+      padding: 20px;
+    }
+
+    .game-content h3 {
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .game-content p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      opacity: 0.8;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      border-top: 1px solid rgba(255,255,255,0.1);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
   </style>
 </head>
 <body>
-  <h1>🎮 Fusionice Games</h1>
-  <p>Bağımsız oyun geliştirme ekibiyiz. Yeni projeler çok yakında!</p>
-  <a href="https://github.com/FusioniceGames">GitHub’da Bizi Takip Et</a>
+
+  <header>
+    <h1>Fusionice Games</h1>
+    <nav>
+      <a href="#games">Oyunlarımız</a>
+      <a href="https://github.com/FusioniceGames">GitHub</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <h2>Bağımsız oyun geliştirici ekibiyiz 🎮</h2>
+    <p>Yaratıcılığa, oynanışa ve eğlenceye önem veren bir oyun stüdyosuyuz.  
+      Her projemizde oyunculara unutulmaz deneyimler sunmayı hedefliyoruz.</p>
+  </section>
+
+  <section id="games" class="games">
+    <div class="game">
+      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1441610/header.jpg" alt="Carry With Care">
+      <div class="game-content">
+        <h3>Carry With Care</h3>
+        <p>Fizik tabanlı bulmaca oyunu. Kırılgan yükleri dikkatlice taşı, engelleri aş, zamanla yarış!  
+          Her seviye, dikkat ve strateji gerektiriyor.</p>
+        <a class="btn" href="https://store.steampowered.com/app/1441610/Carry_With_Care/" target="_blank">Steam Sayfası</a>
+      </div>
+    </div>
+
+    <div class="game">
+      <img src="https://images.unsplash.com/photo-1611605698335-8b4d9aa8f4c5?auto=format&fit=crop&w=800&q=80" alt="Snow Rush">
+      <div class="game-content">
+        <h3>Snow Rush</h3>
+        <p>Mobil platformda sonsuz koşu eğlencesi! Karda hızla ilerle, engelleri aş, güçlendirmeleri topla ve en yüksek skoru yap!</p>
+        <a class="btn" href="#" target="_blank">Yakında Google Play'de</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Fusionice Games — Tüm hakları saklıdır.
+  </footer>
+
 </body>
 </html>
