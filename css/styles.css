@@ -25,23 +25,97 @@ header {
   backdrop-filter: blur(10px);
 }
 
-header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+/* 1. Önce, H1 içindeki TÜM span'ların (Fusion, ice, Games) büyük olmasını sağlıyoruz */
+header h1 span {
+  font-size: 3em; 
+  vertical-align: -0.1em; 
+  font-weight: 700;
+  /* Not: Degrade ve color kodlarını buradan sildik */
+}
+
+/* 2. ŞİMDİ, sadece 'fusion' ve 'ice' span'larına degrade veriyoruz */
+header h1 .fusion,
+header h1 .ice {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+
+  /* Arkaplanı 2 kat büyüt (hareket alanı için) */
+  background-size: 200% auto;
+}
+
+/* "Fusion" (Ateş/Fizyon) stili */
+.fusion {
+  /* Koyu kırmızıdan başlayıp, parlak sarıdan geçen zengin bir ateş degradesi */
+  background-image: linear-gradient(
+    135deg, 
+    #ff4500 0%,   /* Turuncu-Kırmızı */
+    #ff8c00 25%,  /* Koyu Turuncu */
+    #ffdd00 50%,  /* Altın Sarısı */
+    #ff8c00 75%,  /* Koyu Turuncu */
+    #ff4500 100%  /* Turuncu-Kırmızı */
+  ); 
+  
+  /* Hızlı "yanma" efekti için 3 saniyelik döngü */
+  animation: animateGradient 3s linear infinite;
+}
+
+/* "Ice" (Buz) stili */
+.ice {
+  /* Koyu buz mavisi, beyaz ve açık maviden oluşan zengin bir buzul degradesi */
+  background-image: linear-gradient(
+    135deg, 
+    #00bfff 0%,   /* Koyu Gökyüzü Mavisi */
+    #ffffff 25%,  /* Beyaz (Parlak yansıma) */
+    #adefff 50%,  /* Açık Buz Mavisi */
+    #ffffff 75%,  /* Beyaz (Parlak yansıma) */
+    #00bfff 100%  /* Koyu Gökyüzü Mavisi */
+  ); 
+
+  /* Yavaş "buzul" hareketi için 6 saniyelik döngü */
+  animation: animateGradient 6s linear infinite;
+}
+/* "Games" (Başlıktaki) stili */
+.games-text {
+  color: #ffd700; /* Vurgu rengi */
+}
+
+/* Navigasyon barının kendisi için Flexbox ayarı */
+nav {
+  display: flex;
+  justify-content: center; /* Blokları yatayda ortalar */
+  flex-wrap: wrap; /* Sığmazlarsa alt satıra atar */
+  gap: 20px; /* Bloklar arasına 20px boşluk koyar */
+  padding-top: 15px; /* Başlıkla arasında boşluk bırakır */
 }
 
 nav a {
   color: #fff;
   text-decoration: none;
-  margin: 0 15px;
-  font-size: 1.1rem;
-  transition: color 0.3s;
+  
+  /* --- Renkler (Arkaplanı kaldırıp, çerçeveyi belirginleştirdik) --- */
+  /* background: rgba(255, 255, 255, 0.2); SİLİNDİ (Beğenmediğiniz kısım) */
+  /* backdrop-filter: blur(5px); SİLİNDİ (Arkaplan yoksa gerek de yok) */
+  border: 2px solid rgba(255, 255, 255, 0.5); /* Çerçeveyi 2px ve daha görünür yaptık */
+  
+  /* --- Boyut (Daha makul bir büyüklük) --- */
+  font-size: 1.75rem; /* 2.75rem'den 1.75rem'e düşürüldü */
+  padding: 12px 25px; /* Boyut küçüldüğü için iç dolgu da azaldı */
+  
+  /* --- Şekil ve Efektler --- */
+  border-radius: 10px; 
   font-weight: 500;
+  transition: all 0.3s ease; 
 }
 
 nav a:hover {
-  color: #ffd700;
+  /* Üzerine gelince dolgu rengi ve koyu metin */
+  color: #333; /* Koyu metin rengi (sarı arkaplan için) */
+  background: #ffd700; /* Sitenin altın sarısı dolgu rengi */
+  border-color: #ffd700; /* Çerçevenin rengi de dolguyla aynı olsun */
+  
+  transform: translateY(-2px); 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); 
 }
 
 .games {
@@ -50,11 +124,23 @@ nav a:hover {
   padding: 20px;
 }
 
-.games h2 {
+.games h3 {
   text-align: center;
-  font-size: 2rem;
-  margin-bottom: 30px;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  margin-top: 40px; /* Bir önceki slider ile arayı açar */
+  color: #ffd700;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+/* "Ekibimiz" ve "Oyunlarımız" başlıkları için ortak stil */
+.team h2,
+.games h2 {
+  font-size: 4rem; 
+  margin-bottom: 50px;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  color: #ffd700; 
+  text-align: center; /* Ortalama eklendi */
 }
 
 .game-tabs {
@@ -85,38 +171,31 @@ nav a:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
 }
 
-.game-tab.active {
-  background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-  border-color: #ffd700;
-  color: #000;
-  box-shadow: 0 6px 25px rgba(255, 215, 0, 0.4);
-}
-
 .game-slider {
-  display: none;
+  display: block; /* 'none' idi 'block' oldu */
   position: relative;
   max-width: 1000px;
-  margin: 0 auto;
+  margin: 0 auto 60px auto; /* 60px alt boşluk eklendi */
   border-radius: 20px;
   overflow: hidden;
   box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
   background: rgba(0, 0, 0, 0.3);
 }
 
-.game-slider.active {
-  display: block;
-  animation: slideIn 0.5s ease-out;
+/* Tekil video için yeni stil */
+.video-container {
+  position: relative;
+  max-width: 1000px;
+  margin: 0 auto 60px auto; /* Slider'larla aynı alt boşluk */
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.3);
 }
 
-@keyframes slideIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.video-container video {
+  width: 100%;
+  display: block; /* Alt boşluk sorununu engeller */
 }
 
 .slides {
@@ -128,42 +207,37 @@ nav a:hover {
 }
 
 .slide {
-  display: none;
+  /* display: none; KALDIRILDI */
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  
+  /* YENİ EKLENENLER: */
+  opacity: 0; /* Slaytı gizle */
+  pointer-events: none; /* Gizliyken tıklanmasın */
+  transition: opacity 0.6s ease-in-out; /* Animasyon yerine yumuşak geçiş */
 }
 
 .slide.active {
-  display: block;
-  animation: fadeIn 0.6s ease-in-out;
+  /* display: block; KALDIRILDI */
+  /* animation: ... KALDIRILDI */
+  
+  /* YENİ EKLENENLER: */
+  opacity: 1; /* Slaytı göster */
+  pointer-events: auto; /* Görünürken tıklanabilsin */
 }
 
-@keyframes fadeIn {
-  from { 
-    opacity: 0;
-    transform: scale(1.05);
-  }
-  to { 
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-.slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: rgba(0, 0, 0, 0.5);
-}
-
+.slide img,
 .slide video {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  background: rgba(0, 0, 0, 0.5);
+  object-fit: contain; /* En/boy oranını korur, sığdırır */
+  background: rgba(0, 0, 0, 0.5); /* Siyah arka plan */
+  position: absolute;
+  top: 0;
+  left: 0;
 }
 
 .prev, .next {
@@ -243,12 +317,6 @@ nav a:hover {
   text-align: center;
 }
 
-.team h2 {
-  font-size: 2rem;
-  margin-bottom: 50px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
 .team-members {
   display: flex;
   justify-content: center;
@@ -260,7 +328,7 @@ nav a:hover {
   background: rgba(255, 255, 255, 0.15);
   padding: 30px;
   border-radius: 20px;
-  width: 300px;
+  width: 300px;  /* <--- SORUN BURADA */
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.2);
@@ -340,5 +408,18 @@ footer {
   .member {
     width: 100%;
     max-width: 350px;
+  }
+}
+
+/* Başlık degradelerini hareket ettirmek için animasyon */
+@keyframes animateGradient {
+  0% {
+    /* Animasyon başlangıç pozisyonu */
+    background-position: 0% 50%;
+  }
+  100% {
+    /* Animasyon bitiş pozisyonu. 
+       %200'e giderek tam bir döngü atar ve başa sarar. */
+    background-position: 200% 50%;
   }
 }

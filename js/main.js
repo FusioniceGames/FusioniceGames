@@ -1,57 +1,56 @@
-// JavaScript code for the Fusionice Games website slider functionality
-
-document.addEventListener("DOMContentLoaded", function() {
-    const slides = document.querySelectorAll(".slide");
-    const nextButton = document.querySelector(".next");
-    const prevButton = document.querySelector(".prev");
-    let currentSlide = 0;
-
-    function showSlide(index) {
-        slides.forEach((slide, i) => {
-            slide.style.display = (i === index) ? "block" : "none";
-        });
-    }
-
-    function nextSlide() {
-        currentSlide = (currentSlide + 1) % slides.length;
-        showSlide(currentSlide);
-    }
-
-    function prevSlide() {
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length;
-        showSlide(currentSlide);
-    }
-
-    nextButton.addEventListener("click", nextSlide);
-    prevButton.addEventListener("click", prevSlide);
-
-    showSlide(currentSlide);
+// 1. Sayfa yüklendiğinde TÜM slider'ları bul ve başlat
+document.addEventListener('DOMContentLoaded', () => {
+  const sliders = document.querySelectorAll('.game-slider');
+  
+  sliders.forEach(slider => {
+    initializeSlider(slider);
+  });
 });
 
-let currentGameId = 'bus-game';
-
-function showGame(gameId) {
-  // Tab'ları güncelle
-  const tabs = document.querySelectorAll('.game-tab');
-  tabs.forEach(tab => tab.classList.remove('active'));
-  event.target.classList.add('active');
-
-  // Oyun slider'larını güncelle
-  const sliders = document.querySelectorAll('.game-slider');
-  sliders.forEach(slider => slider.classList.remove('active'));
+function initializeSlider(slider) {
+  const slides = slider.querySelectorAll('.slide');
+  const dotsContainer = slider.querySelector('.slider-dots');
+  const prevButton = slider.querySelector('.prev');
+  const nextButton = slider.querySelector('.next');
   
-  const selectedSlider = document.getElementById(gameId);
-  selectedSlider.classList.add('active');
+  // Her slider'a kendi 'mevcut slide' sayacını ekliyoruz
+  // 'dataset' kullanarak bunu HTML elemanının hafızasında tutuyoruz
+  slider.dataset.currentSlide = 0;
+
+  // İlk 'active' olan slide'ı bul, yoksa ilkini ata
+  const activeSlide = slider.querySelector('.slide.active');
+  if (activeSlide) {
+      // 'active' olanın indeksini bul ve sayacı ona ayarla
+      slider.dataset.currentSlide = Array.from(slides).indexOf(activeSlide);
+  } else {
+      // 'active' yoksa ilk slide'ı 'active' yap
+      if (slides.length > 0) {
+          slides[0].classList.add('active');
+          slider.dataset.currentSlide = 0;
+      }
+  }
+
+  // Her slider'ın KENDİ butonlarına tıklama olayı ekliyoruz
+  prevButton.addEventListener('click', () => {
+    changeSlide(slider, -1);
+  });
   
-  currentGameId = gameId;
-  currentSlide = 0;
-  updateSlides();
-  createDots();
+  nextButton.addEventListener('click', () => {
+    changeSlide(slider, 1);
+  });
+  
+  // Bu slider için dot'ları (noktaları) oluştur
+  createDots(slider);
+  // Bu slider'ın durumunu güncelle (ilk yükleme için)
+  updateSlides(slider);
 }
 
-function changeSlide(direction) {
-  const activeSlider = document.querySelector('.game-slider.active');
-  const slides = activeSlider.querySelectorAll('.slide');
+function changeSlide(slider, direction) {
+  const slides = slider.querySelectorAll('.slide');
+  if (slides.length === 0) return;
+  
+  // Slider'ın mevcut sayacını al
+  let currentSlide = parseInt(slider.dataset.currentSlide);
   
   slides[currentSlide].classList.remove('active');
   
@@ -63,54 +62,51 @@ function changeSlide(direction) {
     currentSlide = slides.length - 1;
   }
   
-  updateSlides();
+  // Yeni sayacı slider'ın hafızasına kaydet
+  slider.dataset.currentSlide = currentSlide;
+  
+  updateSlides(slider);
 }
 
-function updateSlides() {
-  const activeSlider = document.querySelector('.game-slider.active');
-  const slides = activeSlider.querySelectorAll('.slide');
-  const dots = activeSlider.querySelectorAll('.dot');
+function updateSlides(slider) {
+  const slides = slider.querySelectorAll('.slide');
+  const dots = slider.querySelectorAll('.dot');
+  const currentSlide = parseInt(slider.dataset.currentSlide);
   
   slides.forEach((slide, index) => {
-    slide.classList.remove('active');
     if (index === currentSlide) {
       slide.classList.add('active');
+    } else {
+      slide.classList.remove('active');
     }
   });
   
   dots.forEach((dot, index) => {
-    dot.classList.remove('active');
     if (index === currentSlide) {
       dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
     }
   });
 }
 
-function createDots() {
-  const activeSlider = document.querySelector('.game-slider.active');
-  const slides = activeSlider.querySelectorAll('.slide');
-  const dotsContainer = activeSlider.querySelector('.slider-dots');
+function createDots(slider) {
+  const slides = slider.querySelectorAll('.slide');
+  const dotsContainer = slider.querySelector('.slider-dots');
+  const currentSlide = parseInt(slider.dataset.currentSlide);
   
-  dotsContainer.innerHTML = '';
+  dotsContainer.innerHTML = ''; // Eski dot'ları temizle
   
   slides.forEach((_, index) => {
     const dot = document.createElement('span');
     dot.classList.add('dot');
-    if (index === 0) dot.classList.add('active');
+    if (index === currentSlide) dot.classList.add('active');
+    
+    // Dot'a tıklanınca bu slider'ı güncelle
     dot.onclick = () => {
-      currentSlide = index;
-      updateSlides();
+      slider.dataset.currentSlide = index;
+      updateSlides(slider);
     };
     dotsContainer.appendChild(dot);
   });
 }
-
-// Sayfa yüklendiğinde dot'ları oluştur
-window.onload = () => {
-  createDots();
-};
-
-// Otomatik slider (isteğe bağlı)
-setInterval(() => {
-  changeSlide(1);
-}, 5000);
