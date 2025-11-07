@@ -72,15 +72,58 @@ function updateSlides(slider) {
   const slides = slider.querySelectorAll('.slide');
   const dots = slider.querySelectorAll('.dot');
   const currentSlide = parseInt(slider.dataset.currentSlide);
-  
+
   slides.forEach((slide, index) => {
+    
+    // ÖNCE: Aktif olmayan slaytlardaki videoları durdur (Performans)
+    if (slide.classList.contains('active') && index !== currentSlide) {
+      const oldVideo = slide.querySelector('video');
+      if (oldVideo) {
+        oldVideo.pause();
+      }
+    }
+
+    // SONRA: Yeni slaytı aktif et ve medyayı yükle
     if (index === currentSlide) {
       slide.classList.add('active');
+      
+      // --- YENİ TEMBEL YÜKLEME KODU ---
+      // Bu slayt aktif olduğunda, içindeki medyayı yükle
+      
+      // 1. GÖRSELLERİ (IMG) YÜKLE
+      // 'data-src' etiketine sahip bir <img> etiketi ara
+      const image = slide.querySelector('img[data-src]');
+      if (image) {
+        image.src = image.dataset.src; // data-src'yi alıp gerçek src'ye ata
+        image.removeAttribute('data-src'); // İşi bittiği için bu etiketi kaldır
+      }
+      
+      // 2. VİDEOLARI (SOURCE) YÜKLE
+      // 'data-src' etiketine sahip bir <source> etiketi ara
+      const source = slide.querySelector('source[data-src]');
+      if (source) {
+        const video = slide.querySelector('video');
+        source.src = source.dataset.src; // data-src'yi alıp gerçek src'ye ata
+        source.removeAttribute('data-src'); // İşi bittiği için kaldır
+        video.load(); // Videonun yeni kaynağı okumasını sağla
+        
+        // Autoplay'i manuel tetikle (bazı tarayıcılar için gerekli)
+        var playPromise = video.play();
+        if (playPromise !== undefined) {
+            playPromise.catch(error => {
+                // Autoplay engellendi (genellikle sese izin verilmediği için)
+                // Video 'muted' olduğu için bu sorun olmamalı, ama garanti olsun.
+            });
+        }
+      }
+      // --- / TEMBEL YÜKLEME KODU ---
+
     } else {
       slide.classList.remove('active');
     }
   });
   
+  // Dot'ları (noktaları) güncelle
   dots.forEach((dot, index) => {
     if (index === currentSlide) {
       dot.classList.add('active');
