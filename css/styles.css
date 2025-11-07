@@ -328,10 +328,17 @@ nav a:hover {
   background: rgba(255, 255, 255, 0.15);
   padding: 30px;
   border-radius: 20px;
-  width: 300px;  /* <--- SORUN BURADA */
+  width: 300px; 
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
   border: 2px solid rgba(255, 255, 255, 0.2);
+  
+  /* --- YENİ EKLENENLER --- */
+  display: flex;
+  flex-direction: column;
+  
+  /* --- YENİ EKLENEN HİZALAMA DÜZELTMESİ --- */
+  align-items: center; /* Bu satır, içindekileri yatayda ortalar */
 }
 
 .member:hover {
@@ -367,6 +374,34 @@ nav a:hover {
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.9);
 }
+
+/* --- Ekip Üyesi Kartı - Sosyal İkon Stilleri --- */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 25px; /* İkonlar arası boşluk */
+  
+  /* --- GÜNCELLENDİ --- */
+  margin-top: auto; /* İkon bloğunu kartın en dibine iter */
+  padding-top: 20px; /* Metinle arasında boşluk kalması için padding kullanırız */
+}
+
+.social-links a {
+  color: rgba(255, 255, 255, 0.7); /* Hafif soluk beyaz */
+  transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+  color: #ffd700; /* Tema vurgu rengi */
+  transform: scale(1.15); /* Hafif büyüme efekti */
+}
+
+.social-links svg {
+  width: 30px;
+  height: 30px;
+  fill: currentColor; /* 'a' etiketinin 'color' özelliğini miras alır */
+}
+/* --- / Ekip Üyesi Kartı - Sosyal İkon Stilleri --- */
 
 footer {
   background: rgba(0, 0, 0, 0.4);
