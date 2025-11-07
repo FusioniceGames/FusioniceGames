@@ -41,39 +41,37 @@ header h1 .ice {
   color: transparent;
 
   /* Arkaplanı 2 kat büyüt (hareket alanı için) */
-  background-size: 200% auto;
+  background-size: 300% auto;
 }
 
 /* "Fusion" (Ateş/Fizyon) stili */
 .fusion {
-  /* Koyu kırmızıdan başlayıp, parlak sarıdan geçen zengin bir ateş degradesi */
+  /* Başladığı yere dönen kusursuz bir degrade (Kırmızı -> Turuncu -> Sarı -> Kırmızı) */
   background-image: linear-gradient(
     135deg, 
     #ff4500 0%,   /* Turuncu-Kırmızı */
-    #ff8c00 25%,  /* Koyu Turuncu */
-    #ffdd00 50%,  /* Altın Sarısı */
-    #ff8c00 75%,  /* Koyu Turuncu */
-    #ff4500 100%  /* Turuncu-Kırmızı */
+    #ff8c00 33%,  /* Koyu Turuncu */
+    #ffdd00 66%,  /* Altın Sarısı */
+    #ff4500 100%  /* Başa Dön (Turuncu-Kırmızı) */
   ); 
   
   /* Hızlı "yanma" efekti için 3 saniyelik döngü */
-  animation: animateGradient 3s linear infinite;
+  animation: animateGradient 3s linear infinite alternate;
 }
 
 /* "Ice" (Buz) stili */
 .ice {
-  /* Koyu buz mavisi, beyaz ve açık maviden oluşan zengin bir buzul degradesi */
+  /* Başladığı yere dönen kusursuz bir degrade (Koyu -> Açık -> Beyaz -> Koyu) */
   background-image: linear-gradient(
     135deg, 
     #00bfff 0%,   /* Koyu Gökyüzü Mavisi */
-    #ffffff 25%,  /* Beyaz (Parlak yansıma) */
-    #adefff 50%,  /* Açık Buz Mavisi */
-    #ffffff 75%,  /* Beyaz (Parlak yansıma) */
-    #00bfff 100%  /* Koyu Gökyüzü Mavisi */
+    #adefff 33%,  /* Açık Buz Mavisi */
+    #ffffff 66%,  /* Beyaz (Parlak yansıma) */
+    #00bfff 100%  /* Başa Dön (Koyu Gökyüzü Mavisi) */
   ); 
 
-  /* Yavaş "buzul" hareketi için 6 saniyelik döngü */
-  animation: animateGradient 6s linear infinite;
+/* Yavaş "buzul" hareketi için 6 saniyelik döngü */
+  animation: animateGradient 6s linear infinite alternate;
 }
 /* "Games" (Başlıktaki) stili */
 .games-text {
@@ -446,15 +444,11 @@ footer {
   }
 }
 
-/* Başlık degradelerini hareket ettirmek için animasyon */
 @keyframes animateGradient {
   0% {
-    /* Animasyon başlangıç pozisyonu */
     background-position: 0% 50%;
   }
   100% {
-    /* Animasyon bitiş pozisyonu. 
-       %200'e giderek tam bir döngü atar ve başa sarar. */
-    background-position: 200% 50%;
+    background-position: 100% 50%;
   }
 }
