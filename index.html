@@ -4,171 +4,140 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Fusionice Games</title>
-  <style>
-    :root {
-      --bg: #0f1115;
-      --accent: #00bfff;
-      --text: #f1f1f1;
-      --muted: #999;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: "Poppins", Arial, sans-serif;
-      line-height: 1.6;
-    }
-
-    header {
-      padding: 20px 40px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background: rgba(255,255,255,0.02);
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-
-    header h1 {
-      font-size: 1.5rem;
-      color: var(--accent);
-      letter-spacing: 1px;
-    }
-
-    nav a {
-      margin-left: 20px;
-      color: var(--text);
-      text-decoration: none;
-      font-weight: 500;
-      transition: 0.3s;
-    }
-
-    nav a:hover {
-      color: var(--accent);
-    }
-
-    .hero {
-      text-align: center;
-      padding: 100px 20px 60px;
-      background: linear-gradient(180deg, #0f1115 0%, #13161c 100%);
-    }
-
-    .hero h2 {
-      font-size: 2.5rem;
-      margin-bottom: 10px;
-    }
-
-    .hero p {
-      color: var(--muted);
-      font-size: 1.1rem;
-      max-width: 600px;
-      margin: 0 auto 40px;
-    }
-
-    .games {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 40px;
-      padding: 60px 40px;
-    }
-
-    .game {
-      background: #161a21;
-      border-radius: 12px;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
-      transition: transform 0.3s;
-    }
-
-    .game:hover {
-      transform: translateY(-5px);
-    }
-
-    .game img {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .game-content {
-      padding: 20px;
-    }
-
-    .game-content h3 {
-      color: var(--accent);
-      margin-bottom: 10px;
-    }
-
-    .game-content p {
-      color: var(--muted);
-      font-size: 0.95rem;
-      margin-bottom: 15px;
-    }
-
-    .btn {
-      display: inline-block;
-      background: var(--accent);
-      color: #fff;
-      padding: 10px 18px;
-      border-radius: 6px;
-      text-decoration: none;
-      transition: 0.3s;
-    }
-
-    .btn:hover {
-      opacity: 0.8;
-    }
-
-    footer {
-      text-align: center;
-      padding: 40px;
-      border-top: 1px solid rgba(255,255,255,0.1);
-      color: var(--muted);
-      font-size: 0.9rem;
-    }
-  </style>
+  <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
 
   <header>
     <h1>Fusionice Games</h1>
     <nav>
-      <a href="#games">Oyunlarımız</a>
-      <a href="https://github.com/FusioniceGames">GitHub</a>
+      <a href="#games">Oyunlar</a>
+      <a href="#team">Ekibimiz</a>
+      <a href="https://github.com/FusioniceGames" target="_blank">GitHub</a>
     </nav>
   </header>
 
-  <section class="hero">
-    <h2>Bağımsız oyun geliştirici ekibiyiz 🎮</h2>
-    <p>Yaratıcılığa, oynanışa ve eğlenceye önem veren bir oyun stüdyosuyuz.  
-      Her projemizde oyunculara unutulmaz deneyimler sunmayı hedefliyoruz.</p>
-  </section>
-
   <section id="games" class="games">
-    <div class="game">
-      <img src="https://cdn.cloudflare.steamstatic.com/steam/apps/1441610/header.jpg" alt="Carry With Care">
-      <div class="game-content">
-        <h3>Carry With Care</h3>
-        <p>Fizik tabanlı bulmaca oyunu. Kırılgan yükleri dikkatlice taşı, engelleri aş, zamanla yarış!  
-          Her seviye, dikkat ve strateji gerektiriyor.</p>
-        <a class="btn" href="https://store.steampowered.com/app/1441610/Carry_With_Care/" target="_blank">Steam Sayfası</a>
-      </div>
+    <h2>Oyunlarımız</h2>
+    <div class="game-tabs">
+      <button class="game-tab" onclick="showGame('covert-service')">Covert Service</button>
+      <button class="game-tab active" onclick="showGame('bus-game')">Bus Game</button>
+      <button class="game-tab" onclick="showGame('warehouse')">Warehouse</button>
+      <button class="game-tab" onclick="showGame('design-portfolio')">Design Portfolio</button>
     </div>
 
-    <div class="game">
-      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU2tF2n0a7rGre9z1u8uBpo3ZDGefkAJfYwA&s" alt="Snow Rush">
-      <div class="game-content">
-        <h3>Snow Rush</h3>
-        <p>Mobil platformda sonsuz koşu eğlencesi! Karda hızla ilerle, engelleri aş, güçlendirmeleri topla ve en yüksek skoru yap!</p>
-        <a class="btn" href="#" target="_blank">Yakında Google Play'de</a>
+    <div id="covert-service" class="game-slider">
+      <div class="slides">
+        <div class="slide active">
+          <img src="CovertService/MapDesign/HighresScreenshot00000.png" alt="Covert Service Map 1" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/MapDesign/HighresScreenshot00001.png" alt="Covert Service Map 2" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/MapDesign/HighresScreenshot00002.png" alt="Covert Service Map 3" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/MapDesign/HighresScreenshot00003.png" alt="Covert Service Map 4" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/MapDesign/HighresScreenshot00008.png" alt="Covert Service Map 5" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/MapDesign/HighresScreenshot00009.png" alt="Covert Service Map 6" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/MapDesign/HighresScreenshot00010.png" alt="Covert Service Map 7" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/MapDesign/HighresScreenshot00011.png" alt="Covert Service Map 8" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/Mechanics/İsimsiz video ‐ Clipchamp ile yapıldı.gif" alt="Covert Service Mechanic 1" />
+        </div>
+        <div class="slide">
+          <img src="CovertService/Mechanics/İsimsiz video ‐ Clipchamp ile yapıldı (1).gif" alt="Covert Service Mechanic 2" />
+        </div>
+        <div class="slide">
+          <video controls autoplay loop muted>
+            <source src="CovertService/Mechanics/ai_walk.mp4" type="video/mp4" />
+          </video>
+        </div>
+        <div class="slide">
+          <video controls autoplay loop muted>
+            <source src="CovertService/Mechanics/kırılma_mek.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+      <div class="slider-dots"></div>
+    </div>
+
+    <div id="bus-game" class="game-slider active">
+      <div class="slides">
+        <div class="slide active">
+          <img src="images/Dev00.gif" alt="Bus Game Screenshot 1" />
+        </div>
+        <div class="slide">
+          <img src="images/slider/bus-game2.jpg" alt="Bus Game Screenshot 2" />
+        </div>
+        <div class="slide">
+          <img src="images/slider/bus-game3.jpg" alt="Bus Game Screenshot 3" />
+        </div>
+      </div>
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+      <div class="slider-dots"></div>
+    </div>
+
+    <div id="warehouse" class="game-slider">
+      <div class="slides">
+        <div class="slide active">
+          <img src="images/slider/warehouse-1.jpg" alt="Warehouse Screenshot 1" />
+        </div>
+      </div>
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+      <div class="slider-dots"></div>
+    </div>
+
+    <div id="design-portfolio" class="game-slider">
+      <div class="slides">
+        <div class="slide active">
+          <img src="images/slider/design-1.jpg" alt="Design Portfolio 1" />
+        </div>
+      </div>
+      <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+      <button class="next" onclick="changeSlide(1)">&#10095;</button>
+      <div class="slider-dots"></div>
+    </div>
+  </section>
+
+  <section id="team" class="team">
+    <h2>Ekibimiz</h2>
+    <div class="team-members">
+      <div class="member">
+        <img src="images/team/member1.jpg" alt="Member 1" />
+        <h3>Mete Ülken</h3>
+        <p>Software Developer
+          <br />
+          Oyun geliştirme konusunda tutkulu bir yazılımcı.
+        </p>
+      </div>
+      <div class="member">
+        <img src="images/team/member2.jpg" alt="Member 2" />
+        <h3>Burak Öntürk</h3>
+        <p>Game Developer
+          <br />
+          Oyun tasarımı konusunda yaratıcı bir zihin.
+        </p>
+      </div>
+      <div class="member">
+        <img src="images/team/member3.jpg" alt="Member 3" />
+        <h3>Zeynep Tatlıdil</h3>
+        <p>Tasarımcı</p>
+        <p>Oyun görselleri ve arayüz tasarımı konusunda uzman.</p>
       </div>
     </div>
   </section>
@@ -177,5 +146,6 @@
     © 2025 Fusionice Games — Tüm hakları saklıdır.
   </footer>
 
+  <script src="js/main.js"></script>
 </body>
 </html>

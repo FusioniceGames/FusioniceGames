@@ -1,0 +1,19 @@
+{
+  "team": [
+    {
+      "name": "Alice Smith",
+      "description": "Lead Developer with a passion for creating immersive gaming experiences.",
+      "image": "images/team/alice.jpg"
+    },
+    {
+      "name": "Bob Johnson",
+      "description": "Game Designer focused on innovative gameplay mechanics and storytelling.",
+      "image": "images/team/bob.jpg"
+    },
+    {
+      "name": "Charlie Brown",
+      "description": "Artist and Animator dedicated to bringing characters and worlds to life.",
+      "image": "images/team/charlie.jpg"
+    }
+  ]
+}
